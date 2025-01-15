@@ -1,0 +1,105 @@
+{% extends "base_generic.html" %}
+{% block title %}Supervisor Dashboard{% endblock %}
+
+{% block content %}
+<h1>Supervisor Dashboard</h1>
+
+<!-- Latest Punches Section -->
+<h2>Latest Punches</h2>
+<table id="latestPunchesTable" class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>User</th>
+            <th>Punch Type</th>
+            <th>Timestamp</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for punch in latest_punches %}
+        <tr>
+            <td>{{ punch.id }}</td>
+            <td>{{ punch.user.username }}</td>
+            <td>{{ punch.punch_type }}</td>
+            <td>{{ punch.timestamp }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Daily Hours Section -->
+<h2>Daily Hours</h2>
+<table id="dailyHoursTable" class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>User</th>
+            <th>Date</th>
+            <th>Total Hours</th>
+            <th>Regular Hours</th>
+            <th>Overtime Hours</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for daily_hour in daily_hours %}
+        <tr>
+            <td>{{ daily_hour.id }}</td>
+            <td>{{ daily_hour.user.username }}</td>
+            <td>{{ daily_hour.date }}</td>
+            <td>{{ daily_hour.total_hours }}</td>
+            <td>{{ daily_hour.regular_hours }}</td>
+            <td>{{ daily_hour.overtime_hours }}</td>
+            <td>
+                <a href="#" class="btn btn-primary btn-sm">Edit</a>
+                <a href="#" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Weekly Hours Section -->
+<h2>Weekly Hours</h2>
+<table id="weeklyHoursTable" class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>User</th>
+            <th>Week Start</th>
+            <th>Week End</th>
+            <th>Total Hours</th>
+            <th>Regular Hours</th>
+            <th>Overtime Hours</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for weekly_hour in weekly_hours %}
+        <tr>
+            <td>{{ weekly_hour.id }}</td>
+            <td>{{ weekly_hour.user.username }}</td>
+            <td>{{ weekly_hour.week_start_date }}</td>
+            <td>{{ weekly_hour.week_end_date }}</td>
+            <td>{{ weekly_hour.total_hours }}</td>
+            <td>{{ weekly_hour.regular_hours }}</td>
+            <td>{{ weekly_hour.overtime_hours }}</td>
+            <td>
+                <a href="#" class="btn btn-primary btn-sm">Edit</a>
+                <a href="#" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $(document).ready(function () {
+        $('#latestPunchesTable').DataTable();
+        $('#dailyHoursTable').DataTable();
+        $('#weeklyHoursTable').DataTable();
+    });
+</script>
+{% endblock %}

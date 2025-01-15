@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Time Clock{% endblock %}</title>
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Time Clock</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'supervisor_dashboard' %}">Dashboard</a>
+                    </li>
+                </ul>
+                <div class="ms-auto">
+                    <button id="themeToggle" class="btn btn-outline-primary btn-sm">Toggle Dark Mode</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2025 Time Clock App. All rights reserved.</p>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <!-- Bootstrap JS -->
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    {% block extra_js %}
+    <script>
+        jQuery(document).ready(function () {
+            console.log("Dark mode script loaded");
+        });
+    </script>
+    {% endblock %}
+</body>
+</html>
