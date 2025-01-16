@@ -13,4 +13,5 @@ router.register(r'weekly_hours', WeeklyHoursViewSet, basename='weekly_hours')
 # Include the router's URLs
 urlpatterns = [
     path('', include(router.urls)),
-]
+    path('supervisor/dashboard/', supervisor_dashboard, name='supervisor_dashboard'),
+] + router.urls

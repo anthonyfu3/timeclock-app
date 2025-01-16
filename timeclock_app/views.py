@@ -36,9 +36,10 @@ def supervisor_dashboard(request):
     # Fetch daily and weekly hours
     daily_hours = DailyHours.objects.select_related('user').all()
     weekly_hours = WeeklyHours.objects.select_related('user').all()
-    
+    users = User.objects.all()
     return render(request, 'timeclock_app/supervisor_dashboard.html', { # type: ignore
         'latest_punches': latest_punches,
         'daily_hours': daily_hours,
         'weekly_hours': weekly_hours,
+        'users': users,
     })
