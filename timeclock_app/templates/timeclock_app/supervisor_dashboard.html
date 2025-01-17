@@ -149,6 +149,7 @@
             </div>
             <div class="modal-body">
                 <form id="punchForm">
+                    {% csrf_token %}
                     <div class="mb-3">
                         <label for="punchUser" class="form-label">User</label>
                         <select class="form-select" id="punchUser" required>
@@ -233,28 +234,37 @@
 
 
     function submitPunchForm() {
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
         const punchData = {
             user: document.getElementById('punchUser').value,
             punch_type: document.getElementById('punchType').value,
             timestamp: document.getElementById('punchTimestamp').value,
         };
-        fetch(`/punches/`, {
+
+        fetch(`/timeclock/api/punches/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer <token>'
+                'X-CSRFToken': csrftoken, // Add CSRF token here
             },
-            body: JSON.stringify(punchData)
+            body: JSON.stringify(punchData),
         })
             .then(response => {
                 if (response.ok) {
                     alert('Punch saved successfully');
                     location.reload();
                 } else {
-                    alert('Failed to save punch');
+                    response.json().then(data => {
+                        alert(`Failed to save punch: ${data.detail || 'Unknown error'}`);
+                    });
                 }
+            })
+            .catch(error => {
+                alert('Error: ' + error.message);
             });
     }
+
 
     $(document).ready(function () {
         $('#latestPunchesTable').DataTable();

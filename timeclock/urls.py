@@ -5,7 +5,6 @@ from timeclock_app.views import supervisor_dashboard
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('timeclock/', include('timeclock_app.urls')),  # This now directly serves API routes
-    path('admin_dashboard/', supervisor_dashboard, name='supervisor_dashboard'),  
+    path('timeclock/', include('timeclock_app.urls')),  # This now directly serves API routes 
     path('', lambda request: HttpResponseRedirect('/timeclock/')),  # Redirect root to /timeclock/
 ]
